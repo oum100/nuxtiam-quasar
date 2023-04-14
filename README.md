@@ -1,6 +1,8 @@
-# Nuxt 3 Minimal Starter
+# This project base on Nuxt3, NuxtIAM and Quasar. 
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Loot at the [NuxtIAM](https://github.com/jeremycoder/nuxt-iam) here
+And [Quasar](https://nuxt.com/modules/quasar) module for Nuxt3.  Or [Quasar](https://quasar.io) framework.
 
 ## Setup
 
@@ -40,4 +42,3 @@ npm run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-# nuxtiam-quasar
