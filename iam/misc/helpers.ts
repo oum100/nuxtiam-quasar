@@ -1275,6 +1275,7 @@ export async function sendResetEmail(
 
   // Get emailer and url
   const emailer = config.iamEmailer;
+  console.log('Using: ',emailer)
   const url = config.iamPublicUrl;
 
   // nodemailer-service

@@ -47,7 +47,7 @@ async function register(
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }
 
 /**
@@ -70,7 +70,7 @@ async function login(email: string, password: string): Promise<JSONResponse> {
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }
 
 /**
@@ -96,7 +96,7 @@ async function updateProfile(
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }
 
 /**
@@ -110,7 +110,7 @@ async function getProfile(): Promise<JSONResponse> {
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }
 
 /**
@@ -125,7 +125,7 @@ async function logout(): Promise<JSONResponse> {
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }
 
 /**
@@ -144,7 +144,7 @@ async function loginWithGoogle(token: string): Promise<JSONResponse> {
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }
 
 /**
@@ -155,7 +155,7 @@ async function isAuthenticated(): Promise<boolean> {
   let isAuthenticated = false;
 
   // Api response always has status, data, or error
-  const { status, error } = await $fetch("/api/iam/authn/isauthenticated", {
+  const { status, error  } = await $fetch("/api/iam/authn/isauthenticated", {
     headers: {
       "client-platform": "browser",
     },
@@ -187,7 +187,7 @@ async function refresh(): Promise<JSONResponse> {
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }
 
 /**
@@ -209,7 +209,7 @@ async function deleteAccount(
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }
 
 /**
@@ -227,7 +227,7 @@ async function resetPassword(email: string): Promise<JSONResponse> {
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }
 
 /**
@@ -245,7 +245,7 @@ async function verifyReset(token: string): Promise<JSONResponse> {
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }
 
 /**
@@ -263,7 +263,7 @@ async function verifyEmail(email: string): Promise<JSONResponse> {
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }
 
 /**
@@ -281,5 +281,5 @@ async function verifyEmailToken(token: string): Promise<JSONResponse> {
     },
   });
 
-  return response;
+  return response as JSONResponse;
 }

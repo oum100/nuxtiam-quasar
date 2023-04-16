@@ -79,14 +79,11 @@ useHead({
         <div class="col-7  text-center">
             <div class="column  justify-center" style="height:760px">
                 <q-img
-                src="/images/background/blog-bg-2x.jpg"
+                src="https://cdn.pixabay.com/photo/2018/04/08/22/49/puzzle-3302737__480.jpg"
                 style="height:100%"
                 fit="cover"
                 ></q-img>
             </div>
-                
-            
-            
         </div>
         <div class="col-5 text-center">
             <div class="column justify-center " style="height:760px">
@@ -150,16 +147,9 @@ useHead({
                                     <q-btn  to ="/iam/login" flat style="color:blue" class="item-start" icon="login">&nbspเข้าใช้งาน</q-btn>
                                 </div>
                             </div>
-                            <!-- <div class="col-6 text-right">
-                                <div>
-                                    <q-btn  flat style="color:blue" icon="mdi-file-document-outline">&nbsp Team and Condition</q-btn>
-                                </div>
-                            </div> -->
                         </div>
-
                     </q-card-section>
-                </q-card>
-                
+                </q-card>              
             </div>
         </div>
     </div>

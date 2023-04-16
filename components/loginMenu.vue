@@ -77,12 +77,12 @@ async function logMeOut() {
             </q-avatar>          
             <q-menu  >
             <q-list style="min-width: 150px">
-                <q-item to="/backend/dashboard/profile" clickable v-ripple >
+                <q-item to="/backend/dashboard/userProfile" clickable v-ripple >
                     <q-item-section avatar><q-icon name="person"/></q-item-section>
                     <q-item-section>Profile</q-item-section>
                 </q-item>
-                <q-item  to="/backend/dashboard/setting" clickable v-ripple>
-                    <q-item-section avatar><q-icon name="settings"/></q-item-section>
+                <q-item  to="/backend/dashboard/userSetting" clickable v-ripple>
+                    <q-item-section avatar><q-icon name="admin_panel_settings"/></q-item-section>
                     <q-item-section>Setting</q-item-section>
                 </q-item>
                 <q-item clickable v-ripple @click="logMeOut">
@@ -105,7 +105,7 @@ async function logMeOut() {
         >
             <q-scroll-area class="fit" >
                 <q-list padding >
-                    <q-item clickable v-ripple v-for="item in menus" :key="item.title" :to="item.to" >
+                    <q-item clickable v-ripple v-for="item,i in menus" :key="i" :to="item.to" >
                         <q-item-section avatar><q-icon color="white"  :name="item.icon" /></q-item-section>
                         <q-item-section class="text-white" >{{item.title }}</q-item-section>
                     </q-item>

@@ -56,19 +56,6 @@
             <q-space />
             
             <loginMenu />
-            
-            
-            <!-- <q-btn to="/iam/login" outline rounded size="md" icon="mdi-login" class="q-mr-sm" >
-                <q-tooltip>Login</q-tooltip>
-                &nbspLogin
-            </q-btn>
-            <q-btn to="/iam/register" outline rounded icon="mdi-account-plus" class="q-mr-sm">
-                <q-tooltip>Register</q-tooltip>
-                &nbspJoin
-            </q-btn>
-            <q-avatar v-if="isLogin">  
-                <img src="/images/Users/1.jpg">
-            </q-avatar> -->
         </q-toolbar>
     </q-header>
 

@@ -35,6 +35,8 @@
       permissions: "",
     };
 
+    
+
     onMounted(async () => {
       await isLoggedIn();
       await getMyProfile();
@@ -53,6 +55,7 @@
       if (profile && profile.permissions) return profile.permissions.includes('canAccessAdmin')
       else return false
     })
+
 
     // Log user out
     async function logMeOut() {
@@ -125,6 +128,14 @@
     useHead({
       title: "WashPoint Dashboard",  
     });
+
+    function getBreadcrumbs(){
+      const crumbs = useUtils()
+      const items =crumbs.getBreadcrumb()
+      console.log(items)
+      return items
+    }  
+
 </script>
 
 <template>
@@ -160,18 +171,16 @@
                     </q-btn>
                 </div>
             </div>
-            <div v-else class="q-gutter-x-md">
-                <q-toolbar>
-                    <div class="text-h6">Backend</div>
-                </q-toolbar>
+            <div v-else class="q-gutter-x-md">       
+                <breadcrumbBar/>         
                 <NuxtPage :profile="profile" @profileUpdate="getMyProfile"/>         
             </div>
         </div>
     </div>
     <div v-else>
         <q-inner-loading
-        showing="true"
-        label="Please wait..."
+        showing=true
+        label="Please wait..." 
         label-class="text-teal"
         label-style="font-size: 1.1em"
       />

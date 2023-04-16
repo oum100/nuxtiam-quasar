@@ -1,5 +1,9 @@
 <script setup lang="ts">
     const stars = ref(4.2)
+    const getCrumbs = useUtils()
+
+
+
 </script>
 <template>  
     <div class="q-px-md">
@@ -27,8 +31,6 @@
                     col-4
                 </div>
             </div>
-
-
         </q-page>
     </div>
     

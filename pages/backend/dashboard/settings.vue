@@ -4,7 +4,6 @@
 
 <template>
     <div class="q-px-md">
-       
-        <h5>Trannsaction</h5>
+        <h5>Setting</h5>
     </div>
 </template>

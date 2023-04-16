@@ -23,7 +23,7 @@
       </form>
       </div>
       <div v-else>
-        <p>Please check your email for reset instructions. Check your spam folder too.</p>
+            <p>Please check your email for reset instructions. Check your spam folder too.</p>
       </div>            
     </main>
   </div>

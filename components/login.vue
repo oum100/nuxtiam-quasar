@@ -82,7 +82,7 @@
         <div class="col-7  text-center">
             <div class="column  justify-center" style="height:760px">
                 <q-img
-                src="https://cdn.pixabay.com/photo/2021/10/11/17/54/technology-6701504__480.jpg"
+                src="https://cdn.pixabay.com/photo/2021/01/27/11/01/office-desk-5954672__480.jpg"
                 style="height:100%"
                 fit="cover"
                 ></q-img>
@@ -99,7 +99,7 @@
                         <div class="text-subtitle1 text-left q-mt-sm q-ml-md">ป้อนอีเมล์และรหัสผ่านสำหรับเข้าใช้งาน</div>
                     </q-card-section>
                     <q-card-section>
-                        <div class="q-gutter-md" style="max-width: 500px">
+                        <div class="q-gutter-md">
                             <div v-if="allowGoogleAuth">
                                 <GoogleSignInButton
                                     @success="handleGoogleLoginSuccess"
@@ -140,7 +140,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </q-card-section>
                 </q-card>
                 

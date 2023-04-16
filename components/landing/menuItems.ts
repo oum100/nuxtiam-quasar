@@ -25,8 +25,8 @@ export default [
       icon:"mdi-google-analytics"
     },
     {
-      title: "Setting",
-      to: "/",
+      title: "Settings",
+      to: "/backend/dashboard/settings",
       icon:"settings"
     },
   ]
