@@ -47,27 +47,34 @@ export default defineNuxtConfig({
         "@pinia/nuxt",
         'nuxt-quasar-ui'
       ],
-      quasar: {
-        
-        plugins: [
-          'BottomSheet',
-          'Dialog',
-          'Loading',
-          'LoadingBar',
-          'Notify',
-          'Dark',
-        ],
-        extras: {
-          font: 'roboto-font',
-          fontIcons: ['material-icons'],
-        },
+    quasar: {
+      
+      plugins: [
+        'BottomSheet',
+        'Dialog',
+        'Loading',
+        'LoadingBar',
+        'Notify',
+        'Dark',
+      ],
+      extras: {
+        font: 'roboto-font',
+        fontIcons: ['material-icons'],
       },
+    },
+    vite:{
+      server:{
+        hmr:{
+          overlay:false
+        }
+      }
+    },
         // Google sign in
-  googleSignIn: {
-    clientId: process.env.IAM_GOOGLE_CLIENT_ID,
-  },
+    googleSignIn: {
+      clientId: process.env.IAM_GOOGLE_CLIENT_ID,
+    },
 
-  typescript: {
-    shim: false,
-  },
+    typescript: {
+      shim: false,
+    },
 })

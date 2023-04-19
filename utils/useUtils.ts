@@ -22,3 +22,11 @@ function getBreadcrumb() {
     }, [])
     return breadcrumbs
 }
+
+function showState(state:string){
+
+}
+
+function showStatus(status:string){
+  
+}

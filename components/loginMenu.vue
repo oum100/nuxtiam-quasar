@@ -76,22 +76,24 @@ async function logMeOut() {
                 <img :src="avatar" />
             </q-avatar>          
             <q-menu  >
-            <q-list style="min-width: 150px">
-                <q-item to="/backend/dashboard/userProfile" clickable v-ripple >
-                    <q-item-section avatar><q-icon name="person"/></q-item-section>
-                    <q-item-section>Profile</q-item-section>
-                </q-item>
-                <q-item  to="/backend/dashboard/userSetting" clickable v-ripple>
-                    <q-item-section avatar><q-icon name="admin_panel_settings"/></q-item-section>
-                    <q-item-section>Setting</q-item-section>
-                </q-item>
-                <q-item clickable v-ripple @click="logMeOut">
-                    <q-item-section avatar><q-icon name="logout"/></q-item-section>
-                    <q-item-section >Logout</q-item-section>
-                </q-item>
-            </q-list>
-        </q-menu>  
+                <q-list style="min-width: 150px">
+                    <q-item to="/backend/dashboard/userProfile" clickable v-ripple >
+                        <q-item-section avatar><q-icon name="person"/></q-item-section>
+                        <q-item-section>Profile</q-item-section>
+                    </q-item>
+                    <q-item  to="/backend/dashboard/userSetting" clickable v-ripple>
+                        <q-item-section avatar><q-icon name="admin_panel_settings"/></q-item-section>
+                        <q-item-section>Setting</q-item-section>
+                    </q-item>
+                    <q-item clickable v-ripple @click="logMeOut">
+                        <q-item-section avatar><q-icon name="logout"/></q-item-section>
+                        <q-item-section >Logout</q-item-section>
+                    </q-item>
+                </q-list>
+            </q-menu>  
         </q-btn>
+
+        <!-- Side menu  -->
         <q-drawer
         v-model="drawerLeft"
         :width="200"
@@ -104,13 +106,27 @@ async function logMeOut() {
         class="bg-primary"
         >
             <q-scroll-area class="fit" >
-                <q-list padding >
-                    <q-item clickable v-ripple v-for="item,i in menus" :key="i" :to="item.to" >
-                        <q-item-section avatar><q-icon color="white"  :name="item.icon" /></q-item-section>
-                        <q-item-section class="text-white" >{{item.title }}</q-item-section>
-                    </q-item>
+                <q-list padding class="menu-list" >
+                    <template v-for="item,i in menus" :key="i" >
+                        <div v-if="item.header">
+                            <q-expansion-item :label="item.title" :icon="item.icon" expand-icon-class="text-white">
+                                <div v-for="subitem,i in item.children" :key="i">
+                                    <q-item clickable v-ripple :to="subitem.to" :inset-level="0.2">
+                                        <q-item-section avatar><q-icon color="white" :name="subitem.icon" /></q-item-section>
+                                        <q-item-section class="text-white" >{{subitem.title }}</q-item-section>
+                                    </q-item>
+                                </div>
+                            </q-expansion-item>
+                        </div>
+                        <q-item v-else clickable v-ripple  :to="item.to" >
+                            <q-item-section avatar><q-icon color="white"  :name="item.icon" /></q-item-section>
+                            <q-item-section class="text-white" >{{item.title }}</q-item-section>
+                        </q-item>
+                        <q-separator color="blue-4" inset :key="'sepa'+i" v-if="item.separator"/>     
+
+                    </template>
                 </q-list>
             </q-scroll-area>  
         </q-drawer>
-    </div>
+    </div>    
 </template>

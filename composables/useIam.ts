@@ -155,7 +155,7 @@ async function isAuthenticated(): Promise<boolean> {
   let isAuthenticated = false;
 
   // Api response always has status, data, or error
-  const { status, error  } = await $fetch("/api/iam/authn/isauthenticated", {
+  const { status,error  } = await $fetch("/api/iam/authn/isauthenticated", {
     headers: {
       "client-platform": "browser",
     },
