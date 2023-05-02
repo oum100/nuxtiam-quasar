@@ -30,10 +30,35 @@ export default [
       separator:false,
     },
     {
-      title: "Financial",
-      to: "/backend/dashboard/financial",
+      header:"/Branch",
+      icon:"mdi-storefront-outline",
+      title: "Branch",
+      children:[
+        {
+          title:"Branch",
+          icon:"mdi-storefront-outline",
+          to:"/backend/branch/branch",
+          separator:false
+        }
+      ]
+    },
+    {
+      header:"/Financial",
       icon:"account_balance",
-      separator:false,
+      title: "Financial",
+      children:[
+        {
+          title:"Wallet",
+          icon:"mdi-wallet-outline",
+          to:"/backend/financial/wallet",
+          separator:false
+        },
+        {
+          title:"Balance",
+          icon:"mdi-wallet-outline",
+          to:"/backend/financial/balance",
+          separator:false
+        }]
     },
     {
       header:"/marketing",
@@ -55,9 +80,16 @@ export default [
       ]
     },
     {
+      header:"/setting",
       title: "Settings",
-      to: "/backend/dashboard/settings",
       icon:"settings",
-      separator:false,
+      children:[
+        {
+          title:"User",
+          icon:"people_alt",
+          to:"/backend/setting/user",
+          separator:false
+        }
+      ]
     }
   ]

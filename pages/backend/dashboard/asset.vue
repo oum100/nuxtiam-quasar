@@ -21,7 +21,7 @@
         {name: 'status', label: 'Status', field: 'status', align: 'left', sortable: true,style: 'width: 100px'},
         {name: 'job', label: 'Job', field: 'job', align: 'left', sortable: true, style: 'width: 120px'},
         {name: 'product', label: 'Products', field: 'products', align: 'left', sortable: true,style: 'width: 150px'},
-        {name: 'update', label: 'Update At', field: 'updateAt', align: 'left', sortable: true, style: 'width: 200px'},
+        {name: 'updateAt', label: 'Update At', field: 'updateAt', align: 'left', sortable: true, style: 'width: 200px'},
         {name: 'actions', label: 'Actions', field: 'actions', align: 'center', sortable: true},
     ]
 
@@ -148,19 +148,19 @@
             </div>   
         </div>
         <q-table
-        flat bordered
-        title="Assets"
-        :rows="rows"
-        :columns="columns"
-        row-key="index"
-        selection="multiple"
-        virtual-scroll
-        :rows-per-page-options="[5,10,20,30]"
-        :filter="filter"
-        v-model:pagination="pagination"
-        v-model:selected="selected"
-        table-header-style="background: #eeeeee"
-        :selected-rows-label="getSelectedString"
+            flat bordered
+            title="Assets"
+            :rows="rows"
+            :columns="columns"
+            row-key="index"
+            selection="multiple"
+            virtual-scroll
+            :rows-per-page-options="[5,10,20,30]"
+            :filter="filter"
+            v-model:pagination="pagination"
+            v-model:selected="selected"
+            table-header-style="background: #eeeeee"
+            :selected-rows-label="getSelectedString"
         >
             <template #top-right>
                 <!-- <div class="q-mr-md q-guttar-md">
@@ -260,8 +260,8 @@
             </template>
             <template #body-cell-actions="props">
                 <q-td class="text-center">
-                    <q-btn flat square size="md" icon="add" color="blue" title="Add Product" />
-                    <q-btn flat square size="md" icon="edit" color="blue" title="Edit Product"> </q-btn>
+                    <!-- <q-btn flat square size="md" icon="add" color="blue" title="Add Product" /> -->
+                    <q-btn flat square size="md" icon="edit" color="blue" title="Edit Asset"> </q-btn>
                 </q-td>
             </template>
 

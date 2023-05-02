@@ -5,6 +5,10 @@
 <template>  
     <div class="q-px-md">
         <q-page>
+            <div>To show in priod of today , weekly, monthly yearly </div>
+            <div>Income total , qr, coin, each machine type (best selling channel)</div>
+            <div>To show best selling product in each area</div>
+            <div>Status from job/machine to understand how well they perform their job, when should maintenance them</div>
             <div class="row" style="height: 200px">
                 <div class="col-3 q-pa-md">
                     <q-card class="my-card" flat bordered>
@@ -19,13 +23,14 @@
                     </q-card>
                 </div>
                 <div class="col-3 bg-blue-3 text-center">
-                    col-2
+                    Weekley, Monthly, Yearly
                 </div>
                 <div class="col-3 bg-blue-4 text-center">
-                    col-3
+                    Transaction for , qr, coin, each type
                 </div>
                 <div class="col-3 bg-blue-4 text-center">
-                    col-4
+                    status job, iot (success failure)
+                    frequency use
                 </div>
             </div>
         </q-page>
