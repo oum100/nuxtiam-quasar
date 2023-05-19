@@ -9,6 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@types/debug": "4.1.7",
     "nuxt": "^3.3.3",
     "nuxt-quasar-ui": "1.6.0"
   },
@@ -22,6 +23,7 @@
     "@types/uuid": "9.0.1",
     "argon2": "0.30.3",
     "dayjs": "1.11.7",
+    "debug": "4.3.4",
     "generate-password": "1.7.0",
     "google-auth-library": "8.7.0",
     "huawei-lte-api": "0.1.1",
@@ -33,6 +35,7 @@
     "nuxt-vue3-google-signin": "0.0.8",
     "pinia": "2.0.34",
     "prisma": "4.12.0",
+    "promptpay-js": "1.0.6",
     "quasar": "2.11.10",
     "query-string": "8.1.0",
     "sass": "1.61.0",
