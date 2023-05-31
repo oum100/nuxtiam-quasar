@@ -45,8 +45,22 @@ export default defineNuxtConfig({
     modules: [
         "nuxt-vue3-google-signin", 
         "@pinia/nuxt",
-        'nuxt-quasar-ui'
+        'nuxt-quasar-ui',
+        '@vee-validate/nuxt',
       ],
+
+    veeValidate: {
+      // disable or enable auto imports
+      autoImports: true,
+      // Use different names for components
+      componentNames: {
+        Form: 'VeeForm',
+        Field: 'VeeField',
+        FieldArray: 'VeeFieldArray',
+        ErrorMessage: 'VeeErrorMessage',
+      },
+    },  
+
     quasar: {
       
       plugins: [
