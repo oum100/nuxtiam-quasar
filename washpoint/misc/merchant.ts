@@ -22,3 +22,13 @@ export async function validateMerchantCode (body:any){
     })
     return schema.validate(body)
 }
+
+export async function validateHeader(header:any){
+    const schema = Joi.object({
+        appkey: Joi.string().required(),
+        merchantcode: Joi.string().required(),
+        appsecret: Joi.string(),
+    }).unknown(true)
+    return schema.validate(header)
+}
+

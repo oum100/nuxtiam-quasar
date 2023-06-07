@@ -1,5 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    sourcemap: {
+      server: true,
+      client: true
+    },
     runtimeConfig: {
         // IAM token secrets. Please rotate every 2 - 4 weeks
         iamAccessTokenSecret: process.env.IAM_ACCESS_TOKEN_SECRET,

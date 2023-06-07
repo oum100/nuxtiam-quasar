@@ -2,15 +2,16 @@ import { Prisma, PrismaClient } from "@prisma/client"
 import Debug from 'debug'
 
 const prisma = new PrismaClient();
+const debug = Debug('api:merchant:getbyid')
 
 export default defineEventHandler( async (event) => {
-    const debug = Debug('api:merchant:getbyid')
+    
     let merchant = null
 
     const query = getQuery(event)
     // const findId = query.id as number
     await prisma.merchants
-    .findFirst({
+    .findUnique({
         where:{id: parseInt(query.id as string)}
     })
     .then(async(res) => {

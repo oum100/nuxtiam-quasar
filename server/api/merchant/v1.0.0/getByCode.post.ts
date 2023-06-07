@@ -24,7 +24,20 @@ export default defineEventHandler( async (event) => {
 
     merchant = await prisma.merchants
     .findUniqueOrThrow({
-        where: {merchantCode: body.merchantCode}
+        where: {merchantCode: body.merchantCode},
+        include:{
+            branchs:{
+                include:{
+                    assets:{
+                        include:{
+                            device:true,
+                            machine:true,
+                            products:true
+                        }
+                    }
+                }
+            }
+        }
     })
     .catch( async(e) => {
         if (e instanceof Prisma.PrismaClientKnownRequestError) {

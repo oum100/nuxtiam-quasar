@@ -1,8 +1,8 @@
 import {Prisma, PrismaClient } from "@prisma/client";
 import Debug from 'debug'
 import jwt  from 'jsonwebtoken'
-import { validateDevicefirmware } from "~/washpoint/misc/device";
 import { customAlphabet } from 'nanoid'
+import { validateDeviceAdd } from "~/washpoint/misc/device";
 
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwzyzABCDEFGHIGKLMNOPQRSTUVWXYZ', 10)
 const prisma = new PrismaClient();
@@ -46,7 +46,7 @@ export default defineEventHandler(async (event) => {
     
     //Validate request Body
     const body = await readBody(event)
-    const { error } = await validateDevicefirmware(body)
+    const { error } = await validateDeviceAdd(body)
     if(error) throw createError({
         statusCode:400,
         message:error.details[0].message,
