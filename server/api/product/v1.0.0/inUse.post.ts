@@ -16,16 +16,28 @@ export default defineEventHandler(async(event)=>{
         })
     }
 
-    const product = await prisma.products.delete({
+    const product = await prisma.products.findUniqueOrThrow({
         where: {sku: body.sku}
     })
-    .catch(async(err)=>{
-        throw(err)
-    })
 
-    let result={
-        description: 'Product deleted successfully',
-        product: product
+    if(product.assetCode){
+        return {
+            "status":"true",
+            "description":"Product was assigned into a asset",
+        }
     }
-    return result
+
+    if(product.branchCode){
+        return {
+            "status":"true",
+            "description":"Product was assigned into a branch",
+        }
+    }
+
+    return {
+        "status":"false",
+        "description":"Product not in use"
+    }
+  
+
 })

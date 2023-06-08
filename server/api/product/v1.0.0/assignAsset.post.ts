@@ -17,10 +17,15 @@ export default defineEventHandler( async(event)=>{
         })
     }
 
+    let asset = body.assetCode
+    if(body.assetCode === 'NULL'){
+        asset = null
+    }
+
     const product = await prisma.products.update({
         where: { sku: body.sku},
         data:{
-            assetCode: body.assetCode
+            assetCode: asset
         }
     })
     .catch(async(err)=>{

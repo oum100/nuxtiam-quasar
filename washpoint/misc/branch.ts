@@ -13,6 +13,7 @@ export async function validateBranchCode(body:any){
     const schema = Joi.object({
         branchCode: Joi.string().required()
     })
+    return schema.validate(body)
 }
 
 export async function validateAssignMerchant(body:any){

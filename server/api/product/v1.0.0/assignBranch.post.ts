@@ -14,10 +14,15 @@ export default defineEventHandler(async(event)=> {
         stack:''
     }
 
+    let branch = body.branchCode
+    if(body.branchCode === 'NULL'){
+        branch = null
+    }
+
     const asset = await prisma.products.update({
         where:{sku: body.sku},
         data:{
-            branchCode: body.branchCode
+            branchCode: branch
         }
     })
     .catch(async(err)=>{
