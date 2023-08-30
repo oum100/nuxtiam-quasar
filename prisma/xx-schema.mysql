@@ -1,0 +1,377 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id             Int              @id @default(autoincrement())
+  uuid           String           @unique(map: "uuid") @db.VarChar(60)
+  email          String           @unique(map: "email") @db.VarChar(255)
+  password       String           @db.VarChar(255)
+  avatar         String?          @db.VarChar(1000)
+  permissions    String?          @db.VarChar(4000)
+  first_name     String           @db.VarChar(255)
+  last_name      String           @db.VarChar(255)
+  role           Role             @default(GENERAL)
+  email_verified Boolean          @default(false)
+  is_active      Boolean          @default(true)
+  last_login     DateTime?        @db.DateTime(0)
+  created_at     DateTime         @default(now()) @db.DateTime(0)
+  deleted_at     DateTime?        @db.DateTime(0)
+  updated_at     DateTime?        @updatedAt
+  refresh_tokens refresh_tokens[]
+  sessions       sessions[]
+  provider_users provider_users[]
+}
+
+model provider_users {
+  id               Int       @id @default(autoincrement())
+  provider         Provider
+  provider_user_id String    @unique(map: "provider_user_id")
+  user             users?    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id          Int
+  updated_at       DateTime? @updatedAt
+}
+
+model sessions {
+  id           Int       @id @default(autoincrement())
+  user         users?    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id      Int
+  sid          String    @unique(map: "sid")
+  start_time   DateTime  @default(now())
+  end_time     DateTime?
+  access_token String    @db.VarChar(4000)
+  csrf_token   String    @db.VarChar(255)
+  is_active    Boolean
+  ip_address   String
+  updated_at   DateTime? @updatedAt
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  GENERAL
+}
+
+enum Provider {
+  GOOGLE
+}
+
+model refresh_tokens {
+  id           Int       @id @default(autoincrement())
+  token_id     String    @unique(map: "token_id") @db.VarChar(60)
+  user         users?    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id      Int
+  is_active    Boolean
+  date_created DateTime  @default(now()) @db.DateTime(0)
+  updated_at   DateTime? @updatedAt
+}
+
+model one_time_tokens {
+  id           Int        @id @default(autoincrement())
+  token_id     String     @unique(map: "token_id") @db.VarChar(60)
+  token_type   tokenType?
+  expires_at   DateTime   @db.DateTime(0)
+  date_created DateTime   @default(now()) @db.DateTime(0)
+  updated_at   DateTime?  @updatedAt
+}
+
+enum tokenType {
+  RESET
+}
+
+
+///For Washpoint 
+
+model Merchants {
+  id              Int           @id @default(autoincrement())
+  merchantCode    String        @unique(map: "merchantCode") @db.VarChar(10)
+  merchantName    String?        @db.VarChar(30)
+  appKey          String?
+  appSecret       String?
+  contact         Contacts[]
+  branchs         Branchs[]
+  devices         Devices[]
+  createdAt       DateTime      @default(now()) @db.DateTime(0)
+  updatedAt       DateTime?     @updatedAt
+}
+
+model Branchs {
+  id            Int          @id @default(autoincrement())
+  branchCode    String       @unique(map: "branchCode") @db.VarChar(10)
+  branchName    String?      @db.VarChar(30)
+  contacts      Contacts[]
+  assets        Assets[]
+  products      Products[]
+  merchant      Merchants?   @relation(fields:[merchantCode], references:[merchantCode], onDelete:Cascade)
+  merchantCode  String?
+  createdAt     DateTime     @default(now()) @db.DateTime(0)
+  updatedAt     DateTime?    @updatedAt
+}
+
+
+model Contacts {
+  id              Int            @id @default(autoincrement())
+  firstName       String         @db.VarChar(25)
+  lastName        String         @db.VarChar(25)
+  mobile1         String         @db.VarChar(25)
+  mobile2         String         @db.VarChar(25)
+  email1          String         @db.VarChar(25)
+  email2          String         @db.VarChar(25)
+  line            String         @db.VarChar(25)
+  facebook        String         @db.VarChar(25)
+  instagram       String         @db.VarChar(25)
+  whatapp         String         @db.VarChar(25)
+  addresses       Addresses[]
+  merchant        Merchants?     @relation(fields:[merchantCode] ,references:[merchantCode], onDelete:Cascade)
+  merchantCode    String?           
+  branch          Branchs?       @relation(fields:[branchCode], references:[branchCode], onDelete:Cascade)
+  branchCode      String?      
+  createdAt       DateTime       @default(now()) @db.DateTime(0)
+  updatedAt       DateTime?      @updatedAt     
+}
+
+model Addresses {
+  id            Int         @id @default(autoincrement())
+  address1      String      @db.VarChar(255)
+  address2      String      @db.VarChar(255)
+  district      String      @db.VarChar(25)
+  county        String      @db.VarChar(25)
+  province      String      @db.VarChar(25)
+  zip           String      @db.VarChar(5)
+  location_lat  String      @db.VarChar(20)
+  location_long String      @db.VarChar(20)
+  contact       Contacts?   @relation(fields:[contactId], references:[id], onDelete:Cascade)
+  contactId     Int?    
+  createdAt     DateTime    @default(now()) @db.DateTime(0)
+  updatedAt     DateTime?   @updatedAt     
+}
+
+model Assets {
+  id            Int           @id @default(autoincrement())
+  assetCode     String        @unique(map: "assetCode") @db.VarChar(10)
+  assetName     String?        @db.VarChar(8)
+  assetStatus   AssetStatus   @default(OFFLINE)
+  products      Products[]      
+  machine       Machines?
+  device        Devices?       
+  config        Configs?      @relation(fields:[configCode], references:[configCode], onDelete:SetNull, onUpdate:Cascade)     
+  configCode    String?
+  branch        Branchs?      @relation(fields: [branchCode], references: [branchCode], onDelete: Cascade)
+  branchCode    String? 
+  createdAt     DateTime      @default(now()) @db.DateTime(0)
+  updatedAt     DateTime?     @updatedAt       
+}
+
+model Machines {
+  id            Int           @id @default(autoincrement())
+  serialNumber  String?       @unique(map: "serialNumber") @db.VarChar(15)
+  type          MachineType?  
+  model         String?       @db.VarChar(30)
+  orderAt       DateTime?     @db.DateTime(0)
+  expireAt      DateTime?     @db.DateTime(0)
+  asset         Assets?       @relation(fields:[assetCode], references:[assetCode], onDelete:SetNull, onUpdate:Cascade)
+  assetCode     String?       @unique
+  createdAt     DateTime      @default(now()) @db.DateTime(0)
+  updatedAt     DateTime?     @updatedAt  
+}
+
+model Products {
+  id            Int         @id @default(autoincrement())
+  sku           String      @unique(map: "sku") @db.VarChar(10)
+  dispName      String?     @db.VarChar(4)   // such as Cold , Worm, Hot
+  description   String?    
+  qty           Int         @default(0)    // Can be piece or amount of time base on setting unit
+  unit          String      @db.VarChar(10) // unit also use to identify qty. such as unit is mins(minutes) and qty is 60 mean 
+  price         Float       @db.Float @default(0)
+  asset         Assets?     @relation(fields:[assetCode], references:[assetCode], onDelete:SetNull, onUpdate:Cascade)
+  assetCode     String?     @unique       
+  branch        Branchs?    @relation(fields:[branchCode], references:[branchCode], onDelete:SetNull , onUpdate:Cascade)
+  branchCode    String?
+  createdAt     DateTime    @default(now()) @db.DateTime(0)
+  updatedAt     DateTime?   @updatedAt  
+}
+
+model Devices {
+  id                Int            @id @default(autoincrement())
+  deviceMac         String         @unique(map: "deviceMac") @db.VarChar(17)
+  shortMac          String?        @db.VarChar(6) 
+  tasmotaName       String?        @db.VarChar(20) 
+  firmware          String?        @db.VarChar(15)
+  deviceState       DeviceState?   @default(REGISTERED)
+  replaceBy         String?        @db.VarChar(17)
+  replaceDate       DateTime?      @db.DateTime(0)      
+  merchant          Merchants?     @relation(fields:[merchantCode], references:[merchantCode], onDelete:Cascade , onUpdate:Cascade)
+  merchantCode      String?
+  asset             Assets?        @relation(fields:[assetCode], references:[assetCode], onDelete:SetNull, onUpdate:Cascade)
+  assetCode         String?        @unique
+  createdAt         DateTime       @default(now()) @db.DateTime(0)
+  updatedAt         DateTime?      @updatedAt  
+}
+
+model LastID {
+  id                Int           @id @default(autoincrement())
+  merchantCode      String        @unique(map: "merchantCode") @db.VarChar(10)
+  branchCode        String        @unique(map: "branchCode") @db.VarChar(6)
+  assetName         String        @unique(map: "assetName") @db.VarChar(6)
+  createdAt         DateTime      @default(now()) @db.DateTime(0)
+  updatedAt         DateTime?     @updatedAt  
+}
+
+model Configs {
+  id                Int           @id @default(autoincrement())
+  configCode        String        @unique(map: "configCode") @db.VarChar(10)
+  hostCFG           HostConfig[]
+  wifiCFG           WifiConfig[]
+  mqttCFG           MqttConfig[]
+  assets            Assets[]
+  createdAt         DateTime      @default(now()) @db.DateTime(0)
+  updatedAt         DateTime?     @updatedAt    
+}
+
+model HostConfig{
+  id                Int           @id @default(autoincrement())
+  appHost           String        @db.VarChar(255) @default("flipup.net")
+  appPort           String        @db.VarChar(5)  @default("3000")
+  appPath           String        @db.VarChar(255) @default("/api")
+  config            Configs?      @relation(fields:[configCode], references:[configCode], onDelete:SetNull, onUpdate:Cascade)     
+  configCode        String?
+  createdAt         DateTime      @default(now()) @db.DateTime(0)
+  updatedAt         DateTime?     @updatedAt
+}
+
+model WifiConfig{
+  id                Int           @id @default(autoincrement())
+  wifiSSID              String        @default("washpoint")
+  wifiPass              String        @default("1100110011")
+  config            Configs?      @relation(fields:[configCode], references:[configCode], onDelete:SetNull, onUpdate:Cascade)     
+  configCode        String?
+  createdAt         DateTime      @default(now()) @db.DateTime(0)
+  updatedAt         DateTime?     @updatedAt  
+}
+
+model MqttConfig{
+  id                Int           @id @default(autoincrement())
+  mqttHost          String        @db.VarChar(50) @default("flipup.net") 
+  mqttUser          String        @db.VarChar(20) @default("sammy")
+  mqttPass          String        @db.VarChar(20) @default("password")
+  mqttPort          String        @db.VarChar(5) @default("1883")
+  publishTopic      String        
+  subscribeTopic    String        
+  config            Configs?      @relation(fields:[configCode], references:[configCode], onDelete:SetNull, onUpdate:Cascade)     
+  configCode        String?
+  createdAt         DateTime      @default(now()) @db.DateTime(0)
+  updatedAt         DateTime?     @updatedAt   
+
+}
+
+model OrderLog {
+  id                Int           @id @default(autoincrement())
+  transactionId     String        @unique(map: "transactionID") @db.VarChar(60)            
+}
+
+enum MachineType {
+  WASHER
+  DRYER
+  WATER
+  FUEL
+  TOY
+  UNDEFINED
+  NULL
+}
+
+enum DeviceState {
+  ACTIVE
+  REGISTERED
+  OUTSERVICE
+  ASSIGNED
+  REPLACEBY
+}
+
+enum AssetStatus {
+  READY
+  QUEUE
+  BUSY
+  OFFLINE
+}
+
+/// Washpoint QRcode
+model QrTransaction {
+  id                                Int         @id @default(autoincrement())
+  transactionId                     String      @unique(map: "transactionID") @db.VarChar(60)
+  method                            Method
+  Application                       Application
+  mobileNumber                      String      @db.VarChar(13)
+  nationalID                        String      @db.VarChar(13)
+  taxID                             String      @db.VarChar(13)
+  eWalletID                         String      @db.VarChar(15)
+  bankAccount                       String      @db.VarChar(43)
+  ota                               String      @db.VarChar(10)
+  billerID                          String      @db.VarChar(15)
+  reference1                        String      @db.VarChar(20)
+  reference2                        String      @db.VarChar(20)
+  mcc                               String      @db.VarChar(4)
+  currencyCode                      String      @db.VarChar(3)
+  amount                            String      @db.VarChar(13)
+  tip                               String      @db.VarChar(13)
+  countryCode                       String      @db.VarChar(2)
+  merchantName                      String      @db.VarChar(25)
+  merchantCity                      String      @db.VarChar(15)
+  postalCode                        String      @db.VarChar(10)
+  additional_billNumber             String      @db.VarChar(26)
+  additional_mobileNumber           String      @db.VarChar(26)
+  additional_storeID                String      @db.VarChar(26)
+  additional_loyaltyNumber          String      @db.VarChar(26)
+  additional_referenceID            String      @db.VarChar(26)
+  dditional_customerID              String      @db.VarChar(26)
+  additional_terminalID             String      @db.VarChar(26)
+  additional_purposeOfTransaction   String      @db.VarChar(26)
+  additional_additionalCustomerData String      @db.VarChar(3)
+  merchantInformation               String      @db.VarChar(99)
+  sellerTaxBranchID                 String      @db.VarChar(4)
+  vatRate                           String      @db.VarChar(5)
+  vatAmount                         String      @db.VarChar(13)
+  createdAt                         DateTime    @default(now()) @db.DateTime(0)
+  updatedAt                         DateTime?   @updatedAt
+}
+
+model PaymentWait {
+  id                                Int             @id @default(autoincrement())
+  transactionId                     String          @unique(map: "transactionID") @db.VarChar(60)
+
+}
+
+model PaymentNotify {
+  id                                Int             @id @default(autoincrement())
+  payment_Id                        String?         @unique(map: "payment_Id") @db.VarChar(60)
+  payment_shop                      String          @db.VarChar(25)
+  payment_sender                    String          @db.VarChar(25)
+  payment_time                      DateTime
+  payment_amount                    String          @db.VarChar(13)
+  payment_message                   String          @db.VarChar(50)
+}
+
+enum Method {
+  QR_STATIC
+  QR_DYNAMIC
+  BLE_STATIC
+  BLE_DYNAMIC
+  NFC_STATIC
+  NFC_DYNAMIC
+}
+
+enum Application {
+  PROMPTPAY_CREDIT_TRANSFER
+  PROMPTPAY_CREDIT_TRANSFER_WITH_OTA
+  PROMPTPAY_BILL_PAYMENT
+  PROMPTPAY_BILL_PAYMENT_CROSS_BORDER
+}
+
+enum Payment_Status{
+  MATCH
+
+}

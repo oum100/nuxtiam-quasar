@@ -6,20 +6,25 @@ import Joi from 'joi'
 
 export async function validateAddConfig(body:any){
     const schema = Joi.object({
-        configName:Joi.string().required(),
+        configCode:Joi.string().required(),
         appHost: Joi.string().required(),
+        appPort: Joi.string().required(),
+        appPath: Joi.string().required(),
+        wifiSSID:Joi.string().required(),
+        wifiPass:Joi.string().required(),
         mqttHost: Joi.string().required(),
         mqttUser: Joi.string().required(),
         mqttPass: Joi.string().required(),
         mqttPort: Joi.string().required(),
-        backendTopic: Joi.string()
+        publishTopic: Joi.string().required(),
+        subscribeTopic: Joi.string().required()
     }).unknown(true)
     return schema.validate(body)
 }
 
 export async function validateConfigName(body:any){
     const schema = Joi.object({
-        configName:Joi.string().required(),
+        configCode:Joi.string().required(),
     })
     return schema.validate(body)
 }

@@ -29,7 +29,7 @@ export async function validateUpdateName(body:any){
 export async function validateUpdateConfig(body:any){
     const schema = Joi.object({
         assetCode: Joi.string().required(),
-        configName: Joi.string().required()
+        configCode: Joi.string().required()
     })
     return schema.validate(body)
 }

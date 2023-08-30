@@ -2,9 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import Debug from 'debug'
 import { validateAsset } from "~/washpoint/misc/asset";
 import { customAlphabet } from 'nanoid'
-import _ from "../../iam/authn/[...]";
 
-const nanoid = customAlphabet('1234567890ABCDEFGHIGKLMNOPQRSTUVWXYZ', 10)
+const nanoid = customAlphabet('1234567890ABCDEF', 10)
 
 
 const prisma = new PrismaClient();

@@ -18,7 +18,7 @@ export default defineEventHandler(async(event)=> {
     .update({
         where:{assetCode:body.assetCode},
         data:{
-            configName: body.configName      
+            configCode: body.configCode      
         }
     })
     .catch(async(err) => {

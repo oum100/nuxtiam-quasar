@@ -1,10 +1,25 @@
+/*
+    This is register api perform following
+    1. This api rquired header
+        - Appkey
+        - MerchantCode
+         
+        Required Body
+        - deviceMac without ":"  such as Mac = AA:BB:CC:DD:EE:FF  deviceMac = AABBCCDDEEFF
+        - firmware such as "1.0.0"
+        - configName such as "cfg-001"   *** configName created by system administrator and provide by merchant creating api ***
+
+    2. Create device from Mac address and firmware
+    3. Bind this new device into asset (create new asset) and create machine to this asset.
+    4. If configName specific. This config will bind to asset
+*/
 import {Prisma, PrismaClient } from "@prisma/client";
 import Debug from 'debug'
 import jwt  from 'jsonwebtoken'
 import { validateAddToAsset } from "~/washpoint/misc/device";
 import { customAlphabet } from 'nanoid'
 
-const nanoid = customAlphabet('1234567890ABCDEFGHIGKLMNOPQRSTUVWXYZ', 10)
+const nanoid = customAlphabet('1234567890ABCDEF', 10)
 const prisma = new PrismaClient();
 const debug = Debug('api:device:add')
 
@@ -93,7 +108,7 @@ export default defineEventHandler(async (event) => {
     }else{
         debug('If deviceMac not found')
         const config = await prisma.configs.findUniqueOrThrow({
-            where:{configName: body.configName}
+            where:{configCode: body.configCode}
         })
         debug('Config: ',config)
         
@@ -123,50 +138,11 @@ export default defineEventHandler(async (event) => {
                 config:true
             }
         })
-        .catch(async(e) => {
-            throw(e.message)
-            // if (e instanceof Prisma.PrismaClientKnownRequestError) {
-            //     // The .code property can be accessed in a type-safe manner
-            //     if (e.code === 'P2002') {
-            //       const err = 'There is a unique constraint violation, cannot create new record'
-            //       throw createError({
-            //         statusCode:404,
-            //         statusMessage: err
-            //       })
-            //       console.log(err)
-            //     }
-            // }
+        .catch(async(err) => {
+            throw(err)
         })
         debug(asset)
 
-        // const updateconfig = await prisma.configs.update({
-        //     where:{configName: body.configName},
-        //     data:{
-        //         assetCode: assetInfo.assetCode
-        //     }
-        // })
-        // .catch(async(err)=>{
-        //     throw(err.message)
-        // })
-
-        // debug('Config: ',updateconfig)
-
         return asset
-
-
-        // if(asset){
-        //     return {
-        //         merchantCode:assetInfo.device.create.merchantCode,
-        //         assetCode: assetInfo.assetCode,
-        //         assetName: assetInfo.assetName,
-        //         device:{
-        //             deviceMac:assetInfo.device.create.deviceMac,
-        //             firmware:assetInfo.device.create.firmware,
-        //             deviceState:assetInfo.device.create.deviceState
-        //         }
-        //     }
-        // }else{ 
-        //     throw ("Operation failed cannot add an asset")
-        // }
     }
 })

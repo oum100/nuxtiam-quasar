@@ -5,7 +5,13 @@ const prisma = new PrismaClient();
 const debug = Debug('api:config:getAll')
 
 export default defineEventHandler(async (event) => {
-    const machines = await prisma.configs.findMany()
+    const machines = await prisma.configs.findMany({
+        include:{
+            hostCFG:true,
+            wifiCFG:true,
+            mqttCFG:true
+        }
+    })
     return machines
 
     

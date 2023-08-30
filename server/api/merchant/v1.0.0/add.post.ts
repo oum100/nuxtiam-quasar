@@ -4,6 +4,7 @@ import { validateMerchantBody } from "~/washpoint/misc/merchant";
 import jwt from 'jsonwebtoken'
 import { nanoid } from 'nanoid'
 
+
 //This is mercharnt add API
 
 const prisma = new PrismaClient();
@@ -17,11 +18,15 @@ export default defineEventHandler(async(event) => {
         statusMessage: error.details[0].message
     }
 
+    
+
     const appSecret = nanoid()
-    const appKey = jwt.sign(body,appSecret)
+    const appKey = jwt.sign(body,appSecret)    
+    // const configName = useRuntimeConfig().washpoint.configName
+
     debug('AppKey: ',appKey)
     debug('AppSecret: ',appSecret)
-
+    // debug ('ConfigName: ',configName)
     
     const branchCode = body.branchCode
     
@@ -32,6 +37,7 @@ export default defineEventHandler(async(event) => {
             merchantName: body.merchantName.trim(),
             appKey: appKey,
             appSecret: appSecret,
+            // configName: configName
             // branchs:{create:{
             //     branchCode: body.merchantName.trim()
             // }}

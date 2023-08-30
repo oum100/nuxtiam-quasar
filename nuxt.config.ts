@@ -4,6 +4,7 @@ export default defineNuxtConfig({
       server: true,
       client: true
     },
+
     runtimeConfig: {
         // IAM token secrets. Please rotate every 2 - 4 weeks
         iamAccessTokenSecret: process.env.IAM_ACCESS_TOKEN_SECRET,
@@ -40,6 +41,14 @@ export default defineNuxtConfig({
           iamVerifyRegistrations: process.env.IAM_VERIFY_REGISTRATIONS,
           iamAllowGoogleAuth: process.env.IAM_ALLOW_GOOGLE_AUTH,
         },
+
+        //Washpoint Mqtt Configuration
+        // configName: process.env.WASHPOINT_CONFIGNAME,
+        mqttHost: process.env.WASHPOINT_MQTTHOST,
+        mqttPort: process.env.WASHPOINT_MQTTPORT,
+        mqttUser: process.env.WASHPOINT_MQTTUSER,
+        mqttPass: process.env.WASHPOINT_MQTTPASS,
+        
       },
 
     css:[
@@ -50,23 +59,9 @@ export default defineNuxtConfig({
         "nuxt-vue3-google-signin", 
         "@pinia/nuxt",
         'nuxt-quasar-ui',
-        '@vee-validate/nuxt',
       ],
 
-    veeValidate: {
-      // disable or enable auto imports
-      autoImports: true,
-      // Use different names for components
-      componentNames: {
-        Form: 'VeeForm',
-        Field: 'VeeField',
-        FieldArray: 'VeeFieldArray',
-        ErrorMessage: 'VeeErrorMessage',
-      },
-    },  
-
     quasar: {
-      
       plugins: [
         'BottomSheet',
         'Dialog',

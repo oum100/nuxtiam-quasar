@@ -23,7 +23,7 @@ export async function validateAddToAsset(body:any){
 export async function validateDeviceAdd(body:any){
     const schema = Joi.object({
         deviceMac: Joi.string().max(17).required(),
-        configName: Joi.string(),
+        configCode: Joi.string(),
         shortMac:Joi.string(),
         tasmotaName:Joi.string(),
         assetName: Joi.string(),
