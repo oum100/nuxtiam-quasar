@@ -256,9 +256,9 @@ model WifiConfig{
 }
 
 model MqttConfig{
-  id                String            @id @default(auto()) @map("_id") @db.ObjectId
+  id                String         @id @default(auto()) @map("_id") @db.ObjectId
   mqttHost          String         @default("flipup.net") 
-  mqttUser          String        @default("sammy")
+  mqttUser          String         @default("sammy")
   mqttPass          String         @default("password")
   mqttPort          String         @default("1883")
   publishTopic      String        
@@ -271,7 +271,7 @@ model MqttConfig{
 }
 
 model OrderLog {
-  id                String            @id @default(auto()) @map("_id") @db.ObjectId
+  id                String        @id @default(auto()) @map("_id") @db.ObjectId
   transactionId     String        @unique(map: "transactionID")            
 }
 
